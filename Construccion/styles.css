@@ -1,0 +1,25 @@
+
+
+/* 
+-----Index-----
+*/
+
+.body-bienvenida{
+    background: linear-gradient(180deg,#0f293c 50%,snow 50%);
+}
+
+.inicio{
+    background-color: #01c38d;
+    margin: 80px auto;    
+    width: 80%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 6px 2px black;
+}
+
+.cont-carousel{
+    padding: 30px 40px;
+}
+
+.cont-formLogin{
+    padding: 30px 40px;
+}
