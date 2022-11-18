@@ -5,21 +5,40 @@
 */
 
 .body-bienvenida{
-    background: linear-gradient(180deg,#0f293c 50%,snow 50%);
+    background: linear-gradient(180deg,#0f293c 65%,snow 50%);
 }
 
 .inicio{
-    background-color: #01c38d;
-    margin: 80px auto;    
+    color: snow;
+    background-color: #1bc09a;
+    margin: 60px auto;    
     width: 80%;
     border-radius: 8px;
-    box-shadow: 0px 0px 6px 2px black;
+    box-shadow: 0px 0px 4px 2px black;
+}
+
+.tit-inicio{
+    text-align: center;
+    padding-top: 20px;
+    color: snow;
+}
+
+.tit-inicio img{
+    width: 100px;
+    height: 80px;
 }
 
 .cont-carousel{
-    padding: 30px 40px;
+    box-shadow: 0px 0px 5px 1px black;
+    width: 75%;
+    margin: 40px auto;
 }
 
 .cont-formLogin{
-    padding: 30px 40px;
+    padding: 60px;
+    margin: 10% 0px;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    border-left: 2px solid #0f293c;
 }

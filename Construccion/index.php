@@ -18,8 +18,12 @@
 
     <div class="inicio">
 
-        <div class="row">
-            <h1>Clinica Altos de los Andes</h1>
+        <div class="row tit-inicio">
+
+            <h1>
+                <img src="img/icon/IconAltosAndes.png" alt="Clinica Altos de los Andes">
+                Clinica Altos de los Andes
+            </h1>
         </div>
         <div class="row">
             <div class="col-8">
@@ -50,20 +54,16 @@
             <div class="col-4">
                 <div class="cont-formLogin">
                     <form>
+                        <h1>Ingresar</h1>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <label for="correo" class="form-label">Correo: </label>
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="sucorreo@correo.com">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <label for="clave" class="form-label">Contraseña: </label>
+                            <input type="password" class="form-control" id="clave" placeholder="*********">
+                        </div>                        
+                        <button type="submit" class="btn btn-primary">Entrar</button>
                     </form>
                 </div>
 
