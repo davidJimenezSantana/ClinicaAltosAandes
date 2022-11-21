@@ -26,7 +26,7 @@
             </h1>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-8 col-xxl-9">
                 <div class="cont-carousel">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -51,9 +51,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 col-xxl-3">
                 <div class="cont-formLogin">
-                    <form>
+                    <form style="width: 100%;" action="logica/autenticar.php" method="POST">
                         <h1>Ingresar</h1>
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo: </label>
@@ -61,9 +61,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="clave" class="form-label">Contraseña: </label>
-                            <input type="password" class="form-control" id="clave" placeholder="*********">
+                            <input type="password" class="form-control" id="clave" name="clave" placeholder="*********">
                         </div>                        
-                        <button type="submit" class="btn btn-primary">Entrar</button>
+                        <button type="submit" class="btn-formulario">Entrar</button>
                     </form>
                 </div>
 

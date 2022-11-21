@@ -5,12 +5,15 @@
 */
 
 .body-bienvenida{
-    background: linear-gradient(180deg,#0f293c 65%,snow 50%);
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background-color: #97CAD8;
 }
 
 .inicio{
     color: snow;
-    background-color: #1bc09a;
+    background-color: #02457A;
     margin: 60px auto;    
     width: 80%;
     border-radius: 8px;
@@ -28,6 +31,10 @@
     height: 80px;
 }
 
+.tit-inicio h1{
+    text-shadow: -1px 6px 4px black;
+}
+
 .cont-carousel{
     box-shadow: 0px 0px 5px 1px black;
     width: 75%;
@@ -41,4 +48,25 @@
     display: flex;
     align-items: center;
     border-left: 2px solid #0f293c;
+}
+
+.btn-formulario{
+    width: 100%;
+    background-color: #001b48;
+    border: 1px solid #d6e8ee;
+    color: #d6e8ee;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.btn-formulario:hover{
+    width: 100%;
+    background-color: #d6e8ee;
+    border: 1px solid #001b48;
+    color: #001b48;    
+    font-weight: bolder;
+}
+
+.form-control{
+    border-radius: 20px !important;
 }
