@@ -13,8 +13,13 @@ INSERT INTO `especialidad` (`idespecialidad`, `nombre`) VALUES (NULL, 'No Aplica
 INSERT INTO `rol` (`idrol`, `nombre`) VALUES (NULL, 'Administador'), (NULL, 'Medico');
 
 -- -----------------------------------------------------
--- Poblar tabla rol
+-- Poblar tabla genero
 -- -----------------------------------------------------
 
+INSERT INTO `genero` (`idgenero`, `nombre`) VALUES (NULL, 'Masculino'), (NULL, 'Femenino');
+
+-- -----------------------------------------------------
+-- Poblar tabla usuario(Agregando el primer administrador)
+-- -----------------------------------------------------
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `correo`, `clave`, `rol_idrol`, `especialidad_idespecialidad`, `telefono`) VALUES (NULL, 'David Alejandro', 'Jimenez Santana', 'davidjimenez199701@gmail.com', MD5('daj'), '1', '1', '30213031080');
