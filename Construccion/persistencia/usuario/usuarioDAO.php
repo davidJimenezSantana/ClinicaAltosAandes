@@ -25,6 +25,24 @@ class usuarioDAO
         $this->telefono = $telefono;
     }
 
+    /**
+     * Get the value of idusuario
+     */ 
+    public function getIdusuario()
+    {
+        return $this->idusuario;
+    }
+
+    /**
+     * Set the value of idusuario
+     */ 
+    public function setIdusuario($idusuario)
+    {
+        $this->idusuario = $idusuario;
+
+        return $this;
+    }
+
     public function getIdespecialidad(){
         return $this->idrol;
     }
@@ -48,9 +66,22 @@ class usuarioDAO
     }
 
     public function consultarUsuario(){
-        return "SELECT nombre, apellido, correo, clave, rol_idrol, especialidad_idespecialidad, telefono
+        return "SELECT nombre, apellido, correo, rol_idrol, especialidad_idespecialidad, telefono
+                FROM usuario
+                WHERE idusuario = '" . $this->idusuario . "'";
+    }
+ 
+
+    public function consultarRol(){
+        return "SELECT rol_idrol
                 FROM usuario
                 WHERE idusuario = '" . $this->idusuario . "'";
     }
 
+    public function verUsuarios(){
+        return "SELECT idusuario,nombre, apellido, correo, rol_idrol, especialidad_idespecialidad, telefono
+                FROM usuario";
+    }
+
+    
 }

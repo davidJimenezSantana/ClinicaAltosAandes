@@ -1,8 +1,8 @@
 <?php
-require_once("../persistencia/usuario/usuarioDAO.php");
-require_once("../persistencia/conexion.php");
-require_once("rol.php");
-require_once("especialidad.php");
+require_once("persistencia/usuario/usuarioDAO.php");
+require_once("persistencia/conexion.php");
+require_once("logica/usuario/rol.php");
+require_once("logica/usuario/especialidad.php");
 
 class usuario
 {
@@ -12,6 +12,7 @@ class usuario
     private $apellido;
     private $correo;
     private $clave;
+    private $idrol;
     private $rol;
     private $especialidad;
     private $telefono;
@@ -20,7 +21,7 @@ class usuario
     private $usuarioDAO;
 
 
-    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono)
+    public function __construct($idusuario = 0, $nombre = "", $apellido="", $correo="", $clave="", $rol_idrol=0, $especialidad_idespecialidad=0, $telefono="")
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -55,9 +56,154 @@ class usuario
         $this->nombre = $nombre;
     }
 
+    /**
+     * Get the value of idusuario
+     */ 
+    public function getIdusuario()
+    {
+        return $this->idusuario;
+    }
+
+    /**
+     * Set the value of idusuario
+     */ 
+    public function setIdusuario($idusuario)
+    {
+        $this->idusuario = $idusuario;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of apellido
+     */ 
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    /**
+     * Set the value of apellido
+     */ 
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of correo
+     */ 
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * Set the value of correo
+     */ 
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of clave
+     */ 
+    public function getClave()
+    {
+        return $this->clave;
+    }
+
+    /**
+     * Set the value of clave
+     */ 
+    public function setClave($clave)
+    {
+        $this->clave = $clave;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of telefono
+     */ 
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set the value of telefono
+     */ 
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idrol
+     */ 
+    public function getIdrol()
+    {
+        return $this->idrol;
+    }
+
+    /**
+     * Set the value of idrol
+     */ 
+    public function setIdrol($idrol)
+    {
+        $this->idrol = $idrol;
+
+        return $this;
+    }
+
+    
+    /**
+     * Get the value of rol
+     */ 
+    public function getRol()
+    {
+        return $this->rol;
+    }
+
+    /**
+     * Set the value of rol
+     */ 
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of especialidad
+     */ 
+    public function getEspecialidad()
+    {
+        return $this->especialidad;
+    }
+
+    /**
+     * Set the value of especialidad
+     */ 
+    public function setEspecialidad($especialidad)
+    {
+        $this->especialidad = $especialidad;
+
+        return $this;
+    }
+
     public function autenticar()
     {
-        $this->conexion->abrir();
+        $this->conexion->abrir();        
         $this->conexion->ejecutar($this->usuarioDAO->autenticar());
         $resultado = $this->conexion->extraer();
         if ($resultado != null) {
@@ -66,24 +212,59 @@ class usuario
         } else {
             return false;
         }
+        $this->conexion->cerrar();
+    }
+
+    public function consultarRolUsuario()
+    {
+        $this->conexion->abrir();
+        $this->usuarioDAO->setIdusuario($this->idusuario);
+        $this->conexion->ejecutar($this->usuarioDAO->consultarRol());
+        
+        $resultado = $this->conexion->extraer();
+        $this->idrol = $resultado["rol_idrol"];
+        $this->conexion->cerrar();
+
     }
 
     public function consultarUsuario()
     {
         $this->conexion->abrir();
 
-        $this->conexion->ejecutar($this->especialidadDAO->consultarUsuario());
+        $this->conexion->ejecutar($this->usuarioDAO->consultarUsuario());
 
         $resultado = $this->conexion->extraer();
         $this->nombre = $resultado["nombre"];
         $this->apellido = $resultado["apellido"];
         $this->correo = $resultado["correo"];
-        $this->clave = $resultado["clave"];
         $this->rol = new rol($resultado["rol_idrol"]);
         $this->especialidad = new especialidad($resultado["especialidad_idespecialidad"]);
         $this->telefono = $resultado["telefono"];
 
         $this->rol->consultarRol();
         $this->especialidad->consultarEspecialidad();
+        $this->conexion->cerrar();
     }
+
+    public function verUsuarios()
+    {
+        $this->conexion->abrir();
+
+        $this->conexion->ejecutar($this->usuarioDAO->verUsuarios());
+
+        $usuarios = array();
+
+        while (($resultado = $this->conexion->extraer()) != null) {
+            $u = new usuario($resultado["idusuario"],$resultado["nombre"],$resultado["apellido"],$resultado["correo"],$resultado["rol_idrol"],$resultado["especialidad_idespecialidad"]);
+            $u->getRol()->consultarRol();
+            array_push($usuarios, $u);
+        }
+        $this->conexion->cerrar();
+        return $usuarios;
+    }
+
+    
+
+    
+
 }

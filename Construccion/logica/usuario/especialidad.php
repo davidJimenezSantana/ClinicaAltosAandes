@@ -1,7 +1,7 @@
 <?php
 
-require_once("../persistencia/usuario/especialidadDAO.php");
-require_once("../persistencia/conexion.php");
+require_once("persistencia/usuario/especialidadDAO.php");
+require_once("persistencia/conexion.php");
 
 class especialidad
 {
@@ -13,7 +13,7 @@ class especialidad
     private $especialidadDAO;
 
 
-    public function especialidad($idespecialidad=0, $nombre="")
+    public function __construct($idespecialidad=0, $nombre="")
     {
         $this->idespecialidad = $idespecialidad;
         $this->nombre = $nombre;
@@ -46,6 +46,7 @@ class especialidad
         
         $resultado = $this->conexion->extraer();
         $this->nombre = $resultado["nombre"];
+        $this->conexion->cerrar();
     }
 
 }

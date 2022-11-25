@@ -1,8 +1,8 @@
 <?php
 
 
-require_once("../persistencia/usuario/rolDAO.php");
-require_once("../persistencia/conexion.php");
+require_once("persistencia/usuario/rolDAO.php");
+require_once("persistencia/conexion.php");
 
 
 class rol
@@ -15,7 +15,7 @@ class rol
     private $conexion;
     private $rolDAO;
 
-    public function rol($idrol, $nombre)
+    public function __construct($idrol=0, $nombre="")
     {
         $this->idrol = $idrol;
         $this->nombre = $nombre;
