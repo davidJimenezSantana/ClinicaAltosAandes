@@ -18,7 +18,10 @@ $usuario->consultarUsuario();
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: flex-end;">
             <ul class="navbar-nav">
-                <a class="nav-link" aria-current="page" href="index.php?pid=<?php echo base64_encode("vista/gestionUsuarios/gestionUsuarios.php") ?>">Gestion de usuarios</a>
+                <a class="nav-link" aria-current="page" style="display: flex; align-items: center;" href="index.php?pid=<?php echo base64_encode("vista/gestionUsuarios/gestionUsuarios.php") ?>">
+                    <box-icon name='user' type='solid' color='snow'></box-icon>
+                    Gestion de usuarios
+                </a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Productos

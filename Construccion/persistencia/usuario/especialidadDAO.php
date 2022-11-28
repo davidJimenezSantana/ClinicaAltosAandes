@@ -34,4 +34,9 @@ class especialidadDAO
                 WHERE idespecialidad = '" . $this->idespecialidad . "'";
     }
 
+    public function verEspecialidades(){
+        return "SELECT idespecialidad, nombre
+                FROM especialidad";
+    }
+
 }

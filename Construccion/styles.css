@@ -122,8 +122,52 @@ gestion de usuario
 
 
 .titulo-gestion h1{
+    color: #02457A;
     display: flex;
     justify-content: space-around;
     padding: 15px;
     border-bottom: 1px solid black;
 }
+
+.btn-funcion{
+    color: snow;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    background-color: #02457A;
+    justify-content: space-evenly;
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px 1px black;
+}
+
+.btn-funcion:hover{
+    color: snow;
+    font-weight: bold;
+    box-shadow: 0px 1px 3px 1px black;
+}
+
+.tabla-gestion{
+    text-align: center;
+}
+
+.contenedor-formEditar{
+    visibility: hidden;
+    padding: 15px 25px;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px 1px black;
+    transition:  all 0.3s ease;
+}
+
+.btn-opcion{
+    background-color: transparent;
+    border-radius: 8px;
+    border-color: #02457A;
+}
+
+.btn-opcion:hover{
+    background-color: Snow;
+}
+
+
+

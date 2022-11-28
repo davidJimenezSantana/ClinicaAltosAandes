@@ -24,7 +24,7 @@ class especialidad
     }
 
     public function getIdespecialidad(){
-        return $this->idrol;
+        return $this->idespecialidad;
     }
 
     public function setIdespecialidad($idespecialidad){
@@ -47,6 +47,21 @@ class especialidad
         $resultado = $this->conexion->extraer();
         $this->nombre = $resultado["nombre"];
         $this->conexion->cerrar();
+    }
+
+    public function verEspecialidades(){
+        $this->conexion->abrir();
+
+        $this->conexion->ejecutar($this->especialidadDAO->verEspecialidades());
+
+        $especialidades = array ();
+
+        while(($resultado = $this->conexion->extraer()) != null){
+            array_push($especialidades, new especialidad($resultado["idespecialidad"],$resultado["nombre"]));
+        }
+        
+        $this->conexion->cerrar();
+        return $especialidades;
     }
 
 }

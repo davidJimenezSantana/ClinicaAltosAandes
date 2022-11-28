@@ -34,4 +34,9 @@ class rolDAO
                 WHERE idrol = '" . $this->idrol . "'";
     }
 
+    public function verRoles(){
+        return "SELECT idrol, nombre
+                FROM rol";
+    }
+
 }

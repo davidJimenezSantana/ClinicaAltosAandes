@@ -47,6 +47,20 @@ class rol
         
         $resultado = $this->conexion->extraer();
         $this->nombre = $resultado["nombre"];
+        $this->conexion->cerrar();
+    }
+
+    public function verRoles(){
+        $this->conexion->abrir();
+
+        $this->conexion->ejecutar($this->rolDAO->verRoles());
+        $roles = array();
+        
+        while (($resultado = $this->conexion->extraer()) != null) {
+            array_push($roles, new rol($resultado["idrol"],$resultado["nombre"]));
+        }        
+        $this->conexion->cerrar();
+        return $roles;
     }
 
 }
