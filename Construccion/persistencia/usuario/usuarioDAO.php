@@ -11,9 +11,10 @@ class usuarioDAO
     private $rol_idrol;
     private $especialidad_idespecialidad;
     private $telefono;
+    private $foto;
 
 
-    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono)
+    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto = "")
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -23,6 +24,7 @@ class usuarioDAO
         $this->rol_idrol = $rol_idrol;
         $this->especialidad_idespecialidad = $especialidad_idespecialidad;
         $this->telefono = $telefono;
+        $this->foto = $foto;
     }
 
     /**
@@ -108,5 +110,11 @@ class usuarioDAO
     {
         return "DELETE FROM usuario 
         WHERE idusuario = " . $this->idusuario;
+    }
+
+    public function verExistenciaCorreo(){
+        return "SELECT nombre
+                FROM usuario
+                WHERE correo = '" . $this->correo . "'";
     }
 }

@@ -16,12 +16,13 @@ class usuario
     private $rol;
     private $especialidad;
     private $telefono;
+    private $foto;
 
     private $conexion;
     private $usuarioDAO;
 
 
-    public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "")
+    public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "", $foto = "")
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -31,6 +32,7 @@ class usuario
         $this->rol = new rol($rol_idrol);
         $this->especialidad = new especialidad($especialidad_idespecialidad);
         $this->telefono = $telefono;
+        $this->foto = $foto;
 
         $this->conexion = new conexion();
         $this->usuarioDAO = new usuarioDAO($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono);
@@ -280,6 +282,17 @@ class usuario
     {
         $this->conexion->abrir();
         $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());        
+        $this->conexion->cerrar();
+    }
+
+    public function verExistenciaCorreo(){
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->usuarioDAO->verExistenciaCorreo());
+        if($this->conexion->numResultados() == 1){
+            return true;
+        }else{
+            return false;
+        }            
         $this->conexion->cerrar();
     }
 }

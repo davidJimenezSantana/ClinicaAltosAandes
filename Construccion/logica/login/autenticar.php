@@ -1,6 +1,6 @@
 <?php
 
-require_once ("usuario/usuario.php");
+require_once ("logica/usuario/usuario.php");
 
 $clave = "";
 $correo = "";

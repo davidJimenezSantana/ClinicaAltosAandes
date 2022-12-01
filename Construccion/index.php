@@ -13,7 +13,8 @@ if (isset($_GET["sesion"]) && $_GET["sesion"] == "close") {
 
 
 $paglibre = array(
-    "logica/autenticar.php"
+    "logica/login/autenticar.php",
+    "vista/recuperar.php"
 );
 
 

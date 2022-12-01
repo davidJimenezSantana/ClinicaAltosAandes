@@ -7,7 +7,7 @@ if (isset($_GET["sesion"]) && $_GET["sesion"] == "open") {
     <script>
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: 'bottom-start',
             showConfirmButton: false,
             timer: 1500,
             timerProgressBar: true,

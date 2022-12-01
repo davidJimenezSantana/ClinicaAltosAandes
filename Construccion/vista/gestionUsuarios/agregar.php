@@ -11,30 +11,54 @@ if (isset($_GET["add"])) {
     $rol = $_POST["rol"];
     $especialidad = $_POST["especialidad"];
 
-    $usuario = new usuario(0, $nombre, $apellido, $correo, $clave, $rol, $especialidad, $tel);
-    $usuario->agregarUsuario();
+    $usuario = new usuario(0, "", "", $correo, "", 0, 0, "");
 
+    if (!$usuario->verExistenciaCorreo()) {
+        $usuario = new usuario(0, $nombre, $apellido, $correo, $clave, $rol, $especialidad, $tel);
+        $usuario->agregarUsuario();
 ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
+            Toast.fire({
+                icon: 'success',
+                title: 'Se agrego el usuario correctamente'
+            })
+        </script>
+    <?php
+    } else {
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Se agrego el usuario correctamente'
-        })
-    </script>
+    ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom-start',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: 'El correo pertenece a un usuario existente'
+            })
+        </script>
 <?php
+    }
 }
 
 $u = new usuario();

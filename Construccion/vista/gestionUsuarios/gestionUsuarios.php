@@ -7,6 +7,26 @@ if (isset($_GET["delete"])) {
     $id = $_GET["delete"];
     $usuario = new usuario($id);
     $usuario->eliminarUsuario();
+?>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-start',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Se Elimino el usuario correctamente'
+        })
+    </script>
+<?php
 }
 
 if (isset($_GET["edit"])) {
@@ -26,7 +46,7 @@ if (isset($_GET["edit"])) {
     <script>
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-start',
+            position: 'bottom-start',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -231,18 +251,14 @@ $especialidades = $especialidad->verEspecialidades();
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                swalWithBootstrapButtons.fire(
-                    'Eliminado!',
-                    'El usuario ha sido eliminado',
-                    'success'
-                )
+
                 window.location.assign("index.php?pid=<?php echo base64_encode('vista/gestionUsuarios/gestionUsuarios.php') ?>&delete=" + id)
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
                 swalWithBootstrapButtons.fire(
-                    'Eliminación candelada!',
+                    'Eliminación cancelada!',
                     'El usuario NO sido eliminado',
                     'OK'
                 )

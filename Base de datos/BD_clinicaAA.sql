@@ -181,3 +181,8 @@ CREATE TABLE IF NOT EXISTS `AltoDeLosAlpes`.`historia_clinica_has_usuario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- ALTERS
+-- -----------------------------------------------------
+ALTER TABLE `usuario` ADD `foto` VARCHAR(100) AFTER `telefono`;

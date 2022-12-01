@@ -36,7 +36,7 @@
             </div>
             <div class="col-4 col-xxl-3">
                 <div class="cont-formLogin">
-                    <form style="width: 100%;" action="index.php?pid=<?php echo base64_encode('logica/autenticar.php') ?>" method="POST" class="needs-validation" novalidate>
+                    <form style="width: 100%;" action="index.php?pid=<?php echo base64_encode('logica/login/autenticar.php') ?>" method="POST" class="needs-validation" novalidate>
                         <h1>Ingresar</h1>
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo: </label>
@@ -58,6 +58,7 @@
                                 Por favor ingrese la contraseña.
                             </div>
                         </div>
+                        <a href="index.php?pid=<?php echo base64_encode("vista/recuperar.php") ?>">Recuperar contraseña</a>
                         <button type="submit" class="btn-formulario">Entrar</button>
                     </form>
                 </div>
@@ -88,7 +89,7 @@ if ($sesion == "close") {
     <script>
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: 'bottom-start',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
