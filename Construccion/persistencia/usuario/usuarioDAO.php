@@ -12,9 +12,10 @@ class usuarioDAO
     private $especialidad_idespecialidad;
     private $telefono;
     private $foto;
+    private $token;
 
 
-    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto = "")
+    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token)
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -25,6 +26,7 @@ class usuarioDAO
         $this->especialidad_idespecialidad = $especialidad_idespecialidad;
         $this->telefono = $telefono;
         $this->foto = $foto;
+        $this->token = $token;
     }
 
     /**
@@ -47,12 +49,12 @@ class usuarioDAO
 
     public function getIdespecialidad()
     {
-        return $this->idrol;
+        return $this->especialidad_idespecialidad;
     }
 
     public function setIdespecialidad($idespecialidad)
     {
-        $this->idespecialidad = $idespecialidad;
+        $this->especialidad_idespecialidad = $idespecialidad;
     }
 
     public function getNombre()
@@ -63,6 +65,59 @@ class usuarioDAO
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+    }
+    /**
+     * Get the value of foto
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * Set the value of foto
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of token
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set the value of token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of correo
+     */
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * Set the value of correo
+     */
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+
+        return $this;
     }
 
     public function autenticar()
@@ -112,9 +167,31 @@ class usuarioDAO
         WHERE idusuario = " . $this->idusuario;
     }
 
-    public function verExistenciaCorreo(){
-        return "SELECT nombre
+    public function verExistenciaCorreo()
+    {
+        return "SELECT idusuario
                 FROM usuario
                 WHERE correo = '" . $this->correo . "'";
+    }
+
+    public function guardarToken()
+    {
+        return "UPDATE usuario
+                SET token = '" . $this->token . "'
+                WHERE correo ='" . $this->correo . "'";
+    }
+
+    public function recuperarToken()
+    {
+        return "SELECT token
+                FROM usuario
+                WHERE idusuario = '" . $this->idusuario . "'";
+    }
+
+    public function actualizarClave()
+    {
+        return "UPDATE usuario
+                SET clave = '" . md5($this->clave) . "'
+                WHERE idusuario = '" . $this->idusuario . "'";
     }
 }

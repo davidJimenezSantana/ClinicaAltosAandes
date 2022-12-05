@@ -58,7 +58,7 @@
                                 Por favor ingrese la contraseña.
                             </div>
                         </div>
-                        <a href="index.php?pid=<?php echo base64_encode("vista/recuperar.php") ?>">Recuperar contraseña</a>
+                        <a href="index.php?pid=<?php echo base64_encode("vista/recuperarContraseña/envioCorreo.php") ?>">Recuperar contraseña</a>
                         <button type="submit" class="btn-formulario">Entrar</button>
                     </form>
                 </div>

@@ -1,5 +1,5 @@
 
-let btnEditarUsuario = document.getElementsByClassName("btn-editarUsuario");
+let btnEditar = document.getElementsByClassName("btn-editar");
 let formularioEditarUsuario = document.getElementById("contenedor-formEditar");
 
 
@@ -37,7 +37,14 @@ function cargarContacto(id,nombre, apellido, correo, telefono, rol, especialidad
 
 
 //Listener para todos los botones de editar usuario
-for(var i = 0; i < btnEditarUsuario.length; i++){
-    btnEditarUsuario[i].addEventListener("click", abrirFormularioEditar);
+for(var i = 0; i < btnEditar.length; i++){
+    btnEditar[i].addEventListener("click", abrirFormularioEditar);
 }
 
+function cargarEspecialidad(id,nombre){
+    let formEditar = document.getElementById("formularioEditar");
+    console.log(id);
+    formEditar.idespecialidad.value = id;
+    console.log(nombre);
+    formEditar.nombre.value = nombre;
+}

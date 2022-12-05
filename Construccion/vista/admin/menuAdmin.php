@@ -22,16 +22,14 @@ $usuario->consultarUsuario();
                     <box-icon name='user' type='solid' color='snow'></box-icon>
                     Gestion de usuarios
                 </a>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Productos
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="index.php?pid=<?php echo base64_encode('Vista/buscarProducto.php') ?>">Buscar</a></li>
-                        <li><a class="dropdown-item" href="index.php?pid=<?php echo base64_encode('Vista/agregarProducto.php') ?>">Agregar</a></li>
-                    </ul>
-                </li>
-                <a class="nav-link" aria-current="page" href="index.php?sesion=close">Cerrar sesión</a>
+                <a class="nav-link" aria-current="page" style="display: flex; align-items: center;" href="index.php?pid=<?php echo base64_encode("vista/gestionUsuarios/gestionUsuarios.php") ?>">
+                    <img src="vista/img/icon/icon-paciente.png" alt="paciente" width="35px">
+                    Gestion de pacientes
+                </a>
+                <a class="nav-link" aria-current="page" style="display: flex; align-items: center;" href="index.php?sesion=close">
+                    <box-icon name='exit' type='solid' color='snow'></box-icon>
+                    Cerrar sesión
+                </a>
             </ul>
         </div>
     </div>

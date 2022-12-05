@@ -17,12 +17,13 @@ class usuario
     private $especialidad;
     private $telefono;
     private $foto;
+    private $token;
 
     private $conexion;
     private $usuarioDAO;
 
 
-    public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "", $foto = "")
+    public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "", $foto = "", $token = "")
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -33,21 +34,13 @@ class usuario
         $this->especialidad = new especialidad($especialidad_idespecialidad);
         $this->telefono = $telefono;
         $this->foto = $foto;
+        $this->token = $token;
 
         $this->conexion = new conexion();
-        $this->usuarioDAO = new usuarioDAO($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono);
+        $this->usuarioDAO = new usuarioDAO($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token);
     }
 
-    public function getIdespecialidad()
-    {
-        return $this->idrol;
-    }
-
-    public function setIdespecialidad($idespecialidad)
-    {
-        $this->idespecialidad = $idespecialidad;
-    }
-
+    
     public function getNombre()
     {
         return $this->nombre;
@@ -203,6 +196,43 @@ class usuario
         return $this;
     }
 
+
+    /**
+     * Get the value of foto
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * Set the value of foto
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of token
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set the value of token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
     public function autenticar()
     {
         $this->conexion->abrir();
@@ -210,11 +240,13 @@ class usuario
         $resultado = $this->conexion->extraer();
         if ($resultado != null) {
             $this->idusuario = $resultado["idusuario"];
+            $this->conexion->cerrar();
             return true;
         } else {
+            $this->conexion->cerrar();
             return false;
         }
-        $this->conexion->cerrar();
+        
     }
 
     public function consultarRolUsuario()
@@ -281,18 +313,50 @@ class usuario
     public function eliminarUsuario()
     {
         $this->conexion->abrir();
-        $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());        
+        $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());
         $this->conexion->cerrar();
     }
 
-    public function verExistenciaCorreo(){
+    public function verExistenciaCorreo()
+    {
         $this->conexion->abrir();
+        $this->usuarioDAO->setCorreo($this->correo);
         $this->conexion->ejecutar($this->usuarioDAO->verExistenciaCorreo());
-        if($this->conexion->numResultados() == 1){
+        if ($this->conexion->numResultados() == 1) {
+            $resultado = $this->conexion->extraer();
+            $this->idusuario = $resultado["idusuario"];
+            $this->usuarioDAO->setIdusuario($this->idusuario);
+            $this->conexion->cerrar();
             return true;
-        }else{
+        } else {
+            $this->conexion->cerrar();
             return false;
-        }            
+
+        }
+        
+    }
+
+    public function guardarToken()
+    {
+        $this->conexion->abrir();
+        $this->usuarioDAO->setToken($this->token);
+        $this->conexion->ejecutar($this->usuarioDAO->guardarToken());
+        $this->conexion->cerrar();
+    }
+
+    public function recuperarToken()
+    {
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->usuarioDAO->recuperarToken());
+        $resultado = $this->conexion->extraer();
+        $this->token = $resultado["token"];
+        $this->conexion->cerrar();
+    }
+
+    public function actualizarClave()
+    {
+        $this->conexion->abrir();        
+        $this->conexion->ejecutar($this->usuarioDAO->actualizarClave());
         $this->conexion->cerrar();
     }
 }

@@ -12,31 +12,54 @@ class especialidadDAO
         $this->nombre = $nombre;
     }
 
-    public function getIdespecialidad(){
-        return $this->idrol;
+    public function getIdespecialidad()
+    {
+        return $this->idespecialidad;
     }
 
-    public function setIdespecialidad($idespecialidad){
+    public function setIdespecialidad($idespecialidad)
+    {
         $this->idespecialidad = $idespecialidad;
     }
 
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre){
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function consultarEspecialidad(){
+    public function consultarEspecialidad()
+    {
         return "SELECT nombre
                 FROM especialidad
                 WHERE idespecialidad = '" . $this->idespecialidad . "'";
     }
 
-    public function verEspecialidades(){
+    public function verEspecialidades()
+    {
         return "SELECT idespecialidad, nombre
                 FROM especialidad";
     }
 
+    public function eliminarEspecialidades()
+    {
+        return "DELETE FROM especialidad
+                 WHERE idespecialidad = '" . $this->idespecialidad . "'";
+    }
+
+    public function editarEspecialidad()
+    {
+        return "UPDATE especialidad
+        SET nombre = " . $this->nombre . "
+        WHERE idespecialidad = '" . $this->idespecialidad . "'";
+    }
+
+    public function agregarEspecialidad(){
+        return "INSERT INTO especialidad 
+                VALUES (0,'" . $this->nombre . "')";
+    }
 }

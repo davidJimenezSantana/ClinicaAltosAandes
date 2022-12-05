@@ -146,9 +146,6 @@ gestion de usuario
     box-shadow: 0px 1px 3px 1px black;
 }
 
-.tabla-gestion{
-    text-align: center;
-}
 
 .contenedor-formEditar{
     visibility: hidden;
@@ -170,5 +167,10 @@ gestion de usuario
     background-color: Snow;
 }
 
+
+.tablaEspecialidades{
+    width: 100%;
+    text-align: center;
+}
 
 

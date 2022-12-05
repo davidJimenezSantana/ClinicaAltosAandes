@@ -64,4 +64,22 @@ class especialidad
         return $especialidades;
     }
 
+    public function eliminarEspecialidades(){
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->especialidadDAO->eliminarEspecialidades());
+        $this->conexion->cerrar();
+    }
+
+    public function editarEspecialidad(){
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->especialidadDAO->editarEspecialidad());
+        $this->conexion->cerrar();
+    }
+
+    public function agregarEspecialidad(){
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->especialidadDAO->agregarEspecialidad());
+        $this->conexion->cerrar();
+    }
+
 }

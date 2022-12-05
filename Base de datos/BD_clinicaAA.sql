@@ -185,4 +185,5 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- ALTERS
 -- -----------------------------------------------------
-ALTER TABLE `usuario` ADD `foto` VARCHAR(100) AFTER `telefono`;
+ALTER TABLE `usuario` ADD `foto` VARCHAR(100) NULL AFTER `telefono`;
+ALTER TABLE `usuario` ADD `token` VARCHAR(100) NULL AFTER `foto`;

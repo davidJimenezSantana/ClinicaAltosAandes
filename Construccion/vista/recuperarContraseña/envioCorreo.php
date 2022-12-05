@@ -1,3 +1,19 @@
+<?php
+if (isset($_GET["correo"]) && $_GET["correo"] == "invalid") {
+?>
+    <script>
+        Swal.fire({
+            title: 'Datos Incorrectos',
+            text: 'El correo no pertenece a ningun usuario',
+            icon: 'error',
+            confirmButtonText: 'ok',
+            timer: 2000
+        })
+    </script>
+<?php
+}
+?>
+
 <div class="body-bienvenida">
     <div class="inicio">
 
@@ -14,7 +30,7 @@
             </div>
             <div class="col-4">
                 <div class="cont-formLogin">
-                    <form style="width: 100%;" action="index.php?pid=<?php echo base64_encode('logica/login/recuperar.php') ?>" method="POST" class="needs-validation" novalidate>
+                    <form style="width: 100%;" action="index.php?pid=<?php echo base64_encode('logica/login/envioCorreo.php') ?>" method="POST" class="needs-validation" novalidate>
                         <h2>Recuperar contraseña</h2>
                         <h5>Por favor ingrese su correo electronico</h5>
                         <div class="mb-3">
@@ -40,15 +56,3 @@
         </div>
     </div>
 </div>
-
-<?php
-$length = 20;
-$x = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklymopkz <br>';
-$a = strlen($x) . "<br>";
-
-echo $x;
- echo $a;
- echo ceil($length / strlen($x)) . "<br>"; 
- echo substr(str_shuffle(str_repeat($x = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklymopkz', ceil($length / strlen($x)))), 1, $length);
- 
-?>
