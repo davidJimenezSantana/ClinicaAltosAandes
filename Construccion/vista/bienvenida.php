@@ -84,6 +84,7 @@ if (isset($_GET["invalid"])) {
 }
 
 if ($sesion == "close") {
+    $_SESSION["idusuario"] = null;
 ?>
     
     <script>

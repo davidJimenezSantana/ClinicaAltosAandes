@@ -30,7 +30,7 @@ class estadoVisitaDAO
 
     public function consultarVisita(){
         return "SELECT nombre
-                FROM visita
+                FROM estado_visita
                 WHERE idestado_visita = '" . $this->idestado_visita . "'";
     }
 

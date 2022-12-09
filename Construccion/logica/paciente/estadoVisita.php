@@ -1,15 +1,22 @@
 <?php
 
-class estadoVisitaDAO
+require_once("persistencia/paciente/estadoVisitaDAO.php");
+require_once("persistencia/conexion.php");
+class estadoVisita
 {
 
     private $idestado_visita;
     private $nombre;
+    private $estadoVisitaDAO;
+    private $conexion;
 
-    public function __construct($idestado_visita, $nombre)
+    public function __construct($idestado_visita= 0, $nombre = "")
     {
         $this->idestado_visita = $idestado_visita;
         $this->nombre = $nombre;
+
+        $this->conexion = new conexion();
+        $this->estadoVisitaDAO = new estadoVisitaDAO($idestado_visita, $nombre);
     }
 
     public function getidestado_visita(){
@@ -29,9 +36,11 @@ class estadoVisitaDAO
     }
 
     public function consultarVisita(){
-        return "SELECT nombre
-                FROM visita
-                WHERE idestado_visita = '" . $this->idestado_visita . "'";
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->estadoVisitaDAO->consultarVisita());
+        $resultado = $this->conexion->extraer();
+        $this->nombre = $resultado["nombre"];
+        $this->conexion->cerrar();
     }
 
     public function verVisitas(){

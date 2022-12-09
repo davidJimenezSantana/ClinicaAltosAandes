@@ -12,6 +12,7 @@ if (isset($_GET["add"])) {
     $especialidad = $_POST["especialidad"];
 
     $usuario = new usuario(0, "", "", $correo, "", 0, 0, "");
+    
 
     if (!$usuario->verExistenciaCorreo()) {
         $usuario = new usuario(0, $nombre, $apellido, $correo, $clave, $rol, $especialidad, $tel);

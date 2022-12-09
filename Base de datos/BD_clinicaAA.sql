@@ -187,3 +187,5 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 ALTER TABLE `usuario` ADD `foto` VARCHAR(100) NULL AFTER `telefono`;
 ALTER TABLE `usuario` ADD `token` VARCHAR(100) NULL AFTER `foto`;
+ALTER TABLE `paciente` CHANGE `fecha_nacimiento` `fecha_nacimiento` DATE NOT NULL;
+ALTER TABLE `historia_clinica` CHANGE `Tratamiento` `Tratamiento` VARCHAR(800) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;

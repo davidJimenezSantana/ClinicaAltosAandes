@@ -3,6 +3,7 @@ require_once("persistencia/usuario/usuarioDAO.php");
 require_once("persistencia/conexion.php");
 require_once("logica/usuario/rol.php");
 require_once("logica/usuario/especialidad.php");
+require_once("logica/usuario/agenda.php");
 
 class usuario
 {
@@ -22,6 +23,8 @@ class usuario
     private $conexion;
     private $usuarioDAO;
 
+    private $agenda;
+
 
     public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "", $foto = "", $token = "")
     {
@@ -35,6 +38,7 @@ class usuario
         $this->telefono = $telefono;
         $this->foto = $foto;
         $this->token = $token;
+        $this->agenda = new agenda(0, $this->idusuario);
 
         $this->conexion = new conexion();
         $this->usuarioDAO = new usuarioDAO($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token);
@@ -275,7 +279,7 @@ class usuario
         $this->telefono = $resultado["telefono"];
 
         $this->rol->consultarRol();
-        $this->especialidad->consultarEspecialidad();
+        $this->especialidad->consultarEspecialidad();        
         $this->conexion->cerrar();
     }
 
@@ -296,10 +300,21 @@ class usuario
         return $usuarios;
     }
 
+    public function agregarAgenda()
+    {
+        $this->conexion->ejecutar($this->usuarioDAO->verID());
+        $resultado = $this->conexion->extraer();
+        $agenda = new agenda(0, $resultado["idusuario"]);
+        $agenda->agregarAgenda();
+    }
+
     public function agregarUsuario()
     {
         $this->conexion->abrir();
         $this->conexion->ejecutar($this->usuarioDAO->agregarUsuario());
+        if($this->rol->getIdrol() == 2){
+            $this->agregarAgenda();
+        }        
         $this->conexion->cerrar();
     }
 
@@ -312,8 +327,10 @@ class usuario
 
     public function eliminarUsuario()
     {
-        $this->conexion->abrir();
-        $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());
+        $this->conexion->abrir();        
+        $this->agenda->consultarAgendaUsuario();
+        $this->agenda->eliminarAgenda();
+        $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());        
         $this->conexion->cerrar();
     }
 
@@ -359,4 +376,6 @@ class usuario
         $this->conexion->ejecutar($this->usuarioDAO->actualizarClave());
         $this->conexion->cerrar();
     }
+
+    
 }

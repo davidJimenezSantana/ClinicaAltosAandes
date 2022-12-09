@@ -1,26 +1,35 @@
 <?php
 
-class generoDAO
+require_once("persistencia/paciente/visitaDAO.php");
+require_once("persistencia/conexion.php");
+require_once("logica/paciente/EstadoVisita.php");
+class visita
 {
 
     private $idvisita;
-    private $estado_visita_idestado_visita;
+    private $estado_visita;
     private $agenda_idagenda;
     private $fecha;
     private $hora;
     private $observaciones;
     private $motivo;
     private $historia_clinica_idhistoria_clinica;
-    public function __construct($idvisita, $estado_visita_idestado_visita, $agenda_idagenda, $fecha, $hora, $observaciones, $motivo, $historia_clinica_idhistoria_clinica)
+    private $visitaDAO;
+    private $conexion;
+
+    public function __construct($idvisita = 0, $estado_visita_idestado_visita = 0, $agenda_idagenda = 0, $fecha = "", $hora = "", $observaciones = "", $motivo = "", $historia_clinica_idhistoria_clinica = 0)
     {
         $this->idvisita = $idvisita;
-        $this->estado_visita_idestado_visita = $estado_visita_idestado_visita;
+        $this->estado_visita = new estadoVisita($estado_visita_idestado_visita);
         $this->agenda_idagenda = $agenda_idagenda;
         $this->fecha = $fecha;
         $this->hora = $hora;
         $this->observaciones = $observaciones;
         $this->motivo = $motivo;
         $this->historia_clinica_idhistoria_clinica = $historia_clinica_idhistoria_clinica;
+
+        $this->conexion = new conexion();
+        $this->visitaDAO = new visitaDAO($idvisita, $estado_visita_idestado_visita, $agenda_idagenda, $fecha, $hora, $observaciones, $motivo, $historia_clinica_idhistoria_clinica);
     }
 
 
@@ -28,7 +37,7 @@ class generoDAO
      */
     public function setIdvisita($idvisita)
     {
-        return $this->idvisita = $idvisita;        
+        return $this->idvisita = $idvisita;
     }
 
     /**
@@ -38,20 +47,27 @@ class generoDAO
         return $this->idvisita;
     }
 
+
     /**
+     * Get the value of estado_visita
      */
-    public function getEstado_visita_idestado_visita()
+    public function getEstado_visita()
     {
-        return $this->estado_visita_idestado_visita;
+        return $this->estado_visita;
     }
 
     /**
+     * Set the value of estado_visita
+     *
+     * @return  self
      */
-    public function setEstado_visita_idestado_visita($estado_visita_idestado_visita)
+    public function setEstado_visita($estado_visita)
     {
-        return $this->estado_visita_idestado_visita = $estado_visita_idestado_visita;
-         
+        $this->estado_visita = $estado_visita;
+
+        return $this;
     }
+
 
     /**
      */
@@ -64,7 +80,7 @@ class generoDAO
      */
     public function setAgenda_idagenda($agenda_idagenda)
     {
-        return $this->agenda_idagenda = $agenda_idagenda;        
+        return $this->agenda_idagenda = $agenda_idagenda;
     }
 
     /**
@@ -77,7 +93,7 @@ class generoDAO
 
     /**
      */
-    public function setFecha($fecha) 
+    public function setFecha($fecha)
     {
         return $this->fecha = $fecha;
     }
@@ -140,17 +156,17 @@ class generoDAO
         return $this->historia_clinica_idhistoria_clinica = $historia_clinica_idhistoria_clinica;
     }
 
-
-    public function consultarGenero()
+    public function consultarVisitasHistoriaClinica()
     {
-        return "SELECT estado_visita_idestado_visita, agenda_idagenda, fecha, hora, observaciones, motivo, historia_clinica_idhistoria_clinica
-                FROM visita
-                WHERE idvisita = '" . $this->idvisita . "'";
-    }
-
-    public function verGeneros()
-    {
-        return "SELECT idvisita, estado_visita_idestado_visita, agenda_idagenda, fecha, hora, observaciones, motivo, historia_clinica_idhistoria_clinica
-                FROM visita";
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->visitaDAO->consultarVisitasHistoriaClinica());
+        $visitas = [];
+        while (($resultado = $this->conexion->extraer()) != null) {
+            $v = new visita($resultado["idvisita"], $resultado["estado_visita_idestado_visita"], $resultado["agenda_idagenda"], $resultado["fecha"], $resultado["hora"], $resultado["observaciones"], $resultado["motivo"]);
+            $v->estado_visita->consultarVisita();
+            array_push($visitas, $v);
+        }
+        $this->conexion->cerrar();
+        return $visitas;
     }
 }

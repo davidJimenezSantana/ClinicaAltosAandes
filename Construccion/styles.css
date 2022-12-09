@@ -83,11 +83,11 @@ inicio de usuario
     height: 100vh;
 }
 
-.navbar a{
+.navbar a {
     color: snow;
 }
 
-.navbar a:hover{    
+.navbar a:hover {
     color: snow;
     font-weight: bold;
 }
@@ -101,7 +101,7 @@ card perfil de usuario
     max-width: 540px;
     margin: 4% auto;
     color: snow;
-    box-shadow: 0px 0px 5px 1px black;    
+    box-shadow: 0px 0px 5px 1px black;
 }
 
 .card img {
@@ -114,14 +114,14 @@ card perfil de usuario
 gestion de usuario
 */
 
-.contenedor-gestion{
+.contenedor-gestion {
     padding: 4px;
     background-color: #97CAD8;
     height: 100vh;
 }
 
 
-.titulo-gestion h1{
+.titulo-gestion h1 {
     color: #02457A;
     display: flex;
     justify-content: space-around;
@@ -129,7 +129,7 @@ gestion de usuario
     border-bottom: 1px solid black;
 }
 
-.btn-funcion{
+.btn-funcion {
     color: snow;
     text-decoration: none;
     display: flex;
@@ -140,37 +140,65 @@ gestion de usuario
     box-shadow: 0px 0px 2px 1px black;
 }
 
-.btn-funcion:hover{
+.btn-funcion:hover {
     color: snow;
     font-weight: bold;
     box-shadow: 0px 1px 3px 1px black;
 }
 
 
-.contenedor-formEditar{
+.contenedor-formEditar {
     visibility: hidden;
     padding: 15px 25px;
     border: 1px solid black;
     border-radius: 8px;
     box-shadow: 0px 0px 3px 1px black;
-    transition:  all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.btn-opcion{
+.btn-opcion {
     background-color: transparent;
     border-radius: 8px;
     border-color: #02457A;
 }
 
-.btn-opcion:hover{
-    
+.btn-opcion:hover {
+
     background-color: Snow;
 }
 
 
-.tablaEspecialidades{
+.tablaEspecialidades {
     width: 100%;
     text-align: center;
 }
 
 
+/*
+scrollbar
+*/
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #02457A;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #235c89;
+
+}
+
+.tratamiento {
+    color: black;
+    border: 3px solid #235c89 !important;
+}

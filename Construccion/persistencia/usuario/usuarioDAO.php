@@ -194,4 +194,12 @@ class usuarioDAO
                 SET clave = '" . md5($this->clave) . "'
                 WHERE idusuario = '" . $this->idusuario . "'";
     }
+
+    public function verID()
+    {
+        return "SELECT idusuario
+                FROM usuario
+                WHERE correo ='" . $this->correo . "'";
+    }
+
 }

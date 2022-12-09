@@ -17,7 +17,7 @@ $paglibre = array(
     "logica/login/envioCorreo.php",
     "logica/login/recuperar.php",
     "vista/recuperarContraseña/envioCorreo.php",
-    "vista/recuperarContraseña/recuperar.ph p"
+    "vista/recuperarContraseña/recuperar.php"
 );
 
 

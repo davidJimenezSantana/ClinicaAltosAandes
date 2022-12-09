@@ -1,17 +1,26 @@
 <?php
 
-class historiaClinicaDAO
+
+require_once("persistencia/paciente/historiaClinicaDAO.php");
+require_once("persistencia/conexion.php");
+
+class historiaClinica
 {
 
     private $idhistoria_clinica;
     private $paciente_idpaciente;
     private $tratamiento;
 
-    public function __construct($idhistoria_clinica, $paciente_idpaciente, $tratamiento)
+	private $conexion;
+	private $historiaClinicaDAO;
+
+    public function __construct($idhistoria_clinica = 0, $paciente_idpaciente = 0, $tratamiento = "")
     {
         $this->idhistoria_clinica = $idhistoria_clinica;
         $this->paciente_idpaciente = $paciente_idpaciente;
         $this->tratamiento = $tratamiento;
+		$this->conexion = new conexion();
+		$this->historiaClinicaDAO = new historiaClinicaDAO($idhistoria_clinica,$paciente_idpaciente,$tratamiento);
     }
 	/**
 	 */
@@ -56,16 +65,14 @@ class historiaClinicaDAO
     
     public function consultarHistoriaClinica()
     {
-        return "SELECT paciente_idpaciente, tratamiento
-                FROM historia_clinica
-                WHERE idhistoria_clinica = '" . $this->idhistoria_clinica . "'";
+        $this->conexion->abrir();
+		$this->conexion->ejecutar($this->historiaClinicaDAO->consultarHistoriaClinica());
+		$resultado = $this->conexion->extraer();
+		$this->idhistoria_clinica = $resultado["idhistoria_clinica"];
+		$this->tratamiento = $resultado["tratamiento"];
     }
 
-    public function verhistorias_clinicas()
-    {
-        return "SELECT idhistoria_clinica, paciente_idpaciente, tratamiento
-                FROM historia_clinica";
-    }
+    
     public function editarTratamiento()
     {
         return "UPDATE tratamiento

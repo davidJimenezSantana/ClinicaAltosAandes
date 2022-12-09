@@ -12,31 +12,36 @@ class genero
     private $generoDAO;
     private $conexion;
 
-    public function __construct($idgenero = 0, $nombre= "")
+    public function __construct($idgenero = 0, $nombre = "")
     {
         $this->idgenero = $idgenero;
         $this->nombre = $nombre;
-        $this->generoDAO = new generoDAO($idgenero,$nombre);
+        $this->generoDAO = new generoDAO($idgenero, $nombre);
         $this->conexion = new conexion();
     }
 
-    public function getIdgenero(){
+    public function getIdgenero()
+    {
         return $this->idgenero;
     }
 
-    public function setIdgenero($idgenero){
+    public function setIdgenero($idgenero)
+    {
         $this->idgenero = $idgenero;
     }
 
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre){
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function consultarGenero(){
+    public function consultarGenero()
+    {
         $this->conexion->abrir();
         $this->conexion->ejecutar($this->generoDAO->consultarGenero());
         $resultado = $this->conexion->extraer();
@@ -44,9 +49,16 @@ class genero
         $this->conexion->cerrar();
     }
 
-    public function verGeneros(){
-        return "SELECT idgenero, nombre
-                FROM genero";
+    public function verGeneros()
+    {
+        $this->conexion->abrir();
+        $this->conexion->ejecutar($this->generoDAO->verGeneros());
+        $generos = [];
+        while (($resultado = $this->conexion->extraer()) != null) {
+            $g = new genero($resultado["idgenero"], $resultado["nombre"]);
+            array_push($generos,$g);
+        }
+        $this->conexion->cerrar();
+        return $generos;
     }
-
 }

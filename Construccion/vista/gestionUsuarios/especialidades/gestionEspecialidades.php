@@ -33,7 +33,7 @@ if (isset($_GET["edit"])) {
     $id = $_POST["idespecialidad"];
     $nombre = $_POST["nombre"];
 
-    $especialida = new especialidad($id, $nombre,);
+    $especialidad = new especialidad($id, $nombre,);
     $especialidad->editarEspecialidad();
 
 ?>

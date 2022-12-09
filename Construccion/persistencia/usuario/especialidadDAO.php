@@ -54,7 +54,7 @@ class especialidadDAO
     public function editarEspecialidad()
     {
         return "UPDATE especialidad
-        SET nombre = " . $this->nombre . "
+        SET nombre = '" . $this->nombre . "'
         WHERE idespecialidad = '" . $this->idespecialidad . "'";
     }
 

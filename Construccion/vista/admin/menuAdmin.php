@@ -22,7 +22,7 @@ $usuario->consultarUsuario();
                     <box-icon name='user' type='solid' color='snow'></box-icon>
                     Gestion de usuarios
                 </a>
-                <a class="nav-link" aria-current="page" style="display: flex; align-items: center;" href="index.php?pid=<?php echo base64_encode("vista/gestionUsuarios/gestionUsuarios.php") ?>">
+                <a class="nav-link" aria-current="page" style="display: flex; align-items: center;" href="index.php?pid=<?php echo base64_encode("vista/gestionPaciente/gestionPacientes.php") ?>">
                     <img src="vista/img/icon/icon-paciente.png" alt="paciente" width="35px">
                     Gestion de pacientes
                 </a>

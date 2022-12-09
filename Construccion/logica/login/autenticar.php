@@ -22,7 +22,7 @@ if($usuario ->autenticar()){
     if($usuario->getIdrol() == 1){
         header('Location: index.php?sesion=open&pid=' . base64_encode("vista/admin/inicioAdmin.php"));
     }else if($usuario->getIdrol() == 2){
-        echo "usted es un Doctor";
+        header('Location: index.php?sesion=open&pid=' . base64_encode("vista/doctor/inicioDoctor.php"));
     }
 
 }else{

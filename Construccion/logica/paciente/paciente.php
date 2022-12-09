@@ -55,7 +55,7 @@ class paciente
 
 	/**
 	 */
-	public function getnnmbre()
+	public function getNombre()
 	{
 		return $this->nombre;
 	}
@@ -199,7 +199,6 @@ class paciente
 		$this->conexion->ejecutar($this->pacienteDAO->consultarPaciente());
 
 		$resultado = $this->conexion->extraer();
-		$this->idpaciente = $resultado["idpaciente"];
 		$this->nombre = $resultado["nombre"];
 		$this->apellido = $resultado["apellido"];
 		$this->documento_identidad = $resultado["documento_identidad"];
@@ -253,4 +252,17 @@ class paciente
 		$this->conexion->ejecutar($this->pacienteDAO->eliminarPaciente());
 		$this->conexion->cerrar();	
 	}
+
+	public function validarExistencia()
+    {
+		$this->conexion->abrir();
+		$this->conexion->ejecutar($this->pacienteDAO->validarExistencia());
+		if($this->conexion->numResultados() == 0){
+			$this->conexion->cerrar();	
+			return true;
+		}else{
+			$this->conexion->cerrar();	
+			return false;
+		}
+    }
 }

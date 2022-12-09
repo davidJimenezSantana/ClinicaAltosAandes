@@ -1,6 +1,6 @@
 <?php
 
-class generoDAO
+class visitaDAO
 {
 
     private $idvisita;
@@ -141,11 +141,11 @@ class generoDAO
     }
 
 
-    public function consultarGenero()
+    public function consultarVisitasHistoriaClinica()
     {
-        return "SELECT estado_visita_idestado_visita, agenda_idagenda, fecha, hora, observaciones, motivo, historia_clinica_idhistoria_clinica
+        return "SELECT idvisita,estado_visita_idestado_visita, agenda_idagenda, fecha, hora, observaciones, motivo
                 FROM visita
-                WHERE idvisita = '" . $this->idvisita . "'";
+                WHERE historia_clinica_idhistoria_clinica = '" . $this->historia_clinica_idhistoria_clinica ."'";
     }
 
     public function verGeneros()

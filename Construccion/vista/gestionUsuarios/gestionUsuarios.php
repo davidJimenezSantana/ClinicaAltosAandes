@@ -81,7 +81,7 @@ $especialidades = $especialidad->verEspecialidades();
             paging: false,
             scrollY: 400,
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/es-CO.json'
+                url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
             }
         });
     });
