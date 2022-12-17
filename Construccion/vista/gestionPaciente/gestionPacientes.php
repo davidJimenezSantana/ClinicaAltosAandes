@@ -1,33 +1,19 @@
 <?php
-include("vista/admin/menuAdmin.php");
+
+$u = new usuario($_SESSION["idusuario"]);
+$u->consultarRolUsuario();
+
+if($u->getIdrol() == 1){
+    include("vista/admin/menuAdmin.php");
+}else if($u->getIdrol() == 2){
+    include("vista/doctor/menuDoctor.php");
+}
+
+
 include("logica/paciente/paciente.php");
 
 
-if (isset($_GET["delete"])) {
-    $id = $_GET["delete"];
-    $paciente = new paciente($id);
-    $paciente->eliminarPaciente();
-?>
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-start',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Se Elimino el paciente correctamente'
-        })
-    </script>
-<?php
-}
 
 if (isset($_GET["edit"])) {
     $idpaciente = $_POST["idPaciente"];
@@ -69,7 +55,7 @@ if (isset($_GET["edit"])) {
 
 
 $paciente = new paciente();
-$pacientes = $paciente->verPacientes(); //arreglo de usuarios
+$pacientes = $paciente->verPacientes(); //arreglo de pacientes
 
 
 $genero = new genero();
@@ -138,9 +124,6 @@ $generos = $genero->verGeneros();
                                     <td>
                                         <button class="btn-opcion btn-editar" id="btn-editarUsuario" onclick="cargarPaciente('<?php echo $pacienteActual->getIdpaciente() ?>','<?php echo $pacienteActual->getNombre() ?>', '<?php echo $pacienteActual->getApellido() ?>', '<?php echo $pacienteActual->getDocumento_identidad() ?>', '<?php echo $pacienteActual->getseguro() ?>', '<?php echo  $pacienteActual->getTelefono() ?> ', '<?php echo  $pacienteActual->getCorreo() ?>', '<?php echo  $pacienteActual->getDireccion() ?>', '<?php echo  $pacienteActual->getGenero()->getIdgenero() ?>', '<?php echo  $pacienteActual->getFecha_nacimiento() ?>')">
                                             <box-icon class="editar" name='edit-alt' color='#02457a'></box-icon>
-                                        </button>
-                                        <button class="btn-opcion btn-eliminarUsuario" id="btn-eliminarUsuario" onclick="eliminarUsuario(<?php echo $pacienteActual->getIdpaciente() ?>)">
-                                            <box-icon name='trash' type='solid' color='#02457a'></box-icon>
                                         </button>
                                     </td>
                                     <td>
@@ -290,45 +273,3 @@ $generos = $genero->verGeneros();
         </div>
     </div>
 </div>
-
-<script>
-    const btnEliminar = document.getElementsByClassName("btn-eliminarUsuario");
-
-
-    function eliminarUsuario(a) {
-
-        var id = Number(a);
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
-
-        swalWithBootstrapButtons.fire({
-            title: 'Eliminando Paciente',
-            text: "¿Está seguro de eliminar al Paciente",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si, deseo eliminarlo',
-            cancelButtonText: 'Cancelar',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                window.location.assign("index.php?pid=<?php echo base64_encode('vista/gestionPaciente/gestionPacientes.php') ?>&delete=" + id)
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Eliminación cancelada!',
-                    'El Paciente NO sido eliminado',
-                    'OK'
-                )
-            }
-        })
-
-    }
-</script>

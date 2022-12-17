@@ -1,7 +1,5 @@
 <?php
 
-include("logica/usuario/usuario.php");
-
 $usuario = new usuario($_SESSION["idusuario"]);
 $usuario->consultarUsuario();
 

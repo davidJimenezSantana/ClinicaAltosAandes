@@ -24,7 +24,7 @@ function abrirFormularioEditar() {
 
 //Agregar los campos correspondientes del usuario 
 //al formulario de editar usuarios
-function cargarContacto(id, nombre, apellido, correo, telefono, rol, especialidad) {
+function cargarContacto(id, nombre, apellido, correo, rol, telefono, especialidad, estado) {
     let formEditar = document.getElementById("formularioEditar");
     formEditar.idusuario.value = id;
     formEditar.nombre.value = nombre;
@@ -33,6 +33,7 @@ function cargarContacto(id, nombre, apellido, correo, telefono, rol, especialida
     formEditar.tel.value = Number(telefono);
     formEditar.rol.value = Number(rol);
     formEditar.especialidad.value = Number(especialidad);
+    formEditar.estado.value = Number(estado);
 }
 
 function cargarPaciente(id, nombre, apellido, documento_identidad, seguro, telefono, correo, Direccion, genero, fecha_nacimiento) {
@@ -47,7 +48,9 @@ function cargarPaciente(id, nombre, apellido, documento_identidad, seguro, telef
     formEditar.direccion.value = Direccion;
     formEditar.genero.value = Number(genero);
     formEditar.fecha_nacimiento.value = fecha_nacimiento;
+    
 }
+
 
 
 //Listener para todos los botones de editar usuario

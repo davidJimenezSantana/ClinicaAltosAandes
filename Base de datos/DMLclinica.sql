@@ -57,6 +57,17 @@ VALUES
     (NULL, 'Femenino');
 
 -- -----------------------------------------------------
+-- Poblar tabla estado_usuario
+-- -----------------------------------------------------
+INSERT INTO
+    `estado_usuario` (`idestado_usuario`, `nombre`)
+VALUES
+    (NULL, 'Contratado'),
+    (NULL, 'Sin contrato'),
+    (NULL, 'Activo'),
+    (NULL, 'Inactivo');
+
+-- -----------------------------------------------------
 -- Poblar tabla usuario
 -- -----------------------------------------------------
 INSERT INTO
@@ -68,7 +79,8 @@ INSERT INTO
         `clave`,
         `rol_idrol`,
         `especialidad_idespecialidad`,
-        `telefono`
+        `telefono`,
+        `estado_usuario_idestado_usuario`        
     )
 VALUES
     (
@@ -79,7 +91,8 @@ VALUES
         MD5('daj'),
         '1',
         '1',
-        '30213031080'
+        '30213031080',
+        '3'
     );
 
 INSERT INTO
@@ -90,7 +103,8 @@ INSERT INTO
         `clave`,
         `rol_idrol`,
         `especialidad_idespecialidad`,
-        `telefono`
+        `telefono`,
+        `estado_usuario_idestado_usuario`  
     )
 VALUES
     (
@@ -100,7 +114,8 @@ VALUES
         MD5('prueba'),
         '2',
         '7',
-        '320120120'
+        '320120120',
+        '3'
     );
 
 INSERT INTO
@@ -111,7 +126,8 @@ INSERT INTO
         `clave`,
         `rol_idrol`,
         `especialidad_idespecialidad`,
-        `telefono`
+        `telefono`,
+        `estado_usuario_idestado_usuario`  
     )
 VALUES
     (
@@ -121,7 +137,8 @@ VALUES
         MD5('prueba'),
         '2',
         '10',
-        '365421879'
+        '365421879',
+        '3'
     );
 
 INSERT INTO
@@ -132,7 +149,8 @@ INSERT INTO
         `clave`,
         `rol_idrol`,
         `especialidad_idespecialidad`,
-        `telefono`
+        `telefono`,
+        `estado_usuario_idestado_usuario`  
     )
 VALUES
     (
@@ -142,7 +160,8 @@ VALUES
         MD5('prueba'),
         '2',
         '5',
-        '3258741169'
+        '3258741169',
+        '3'
     );
 
 INSERT INTO
@@ -153,7 +172,8 @@ INSERT INTO
         `clave`,
         `rol_idrol`,
         `especialidad_idespecialidad`,
-        `telefono`
+        `telefono`,
+        `estado_usuario_idestado_usuario`  
     )
 VALUES
     (
@@ -163,7 +183,8 @@ VALUES
         MD5('prueba'),
         '2',
         '8',
-        '365214789'
+        '365214789',
+        '3'
     );
 
 INSERT INTO
@@ -174,7 +195,8 @@ INSERT INTO
         `clave`,
         `rol_idrol`,
         `especialidad_idespecialidad`,
-        `telefono`
+        `telefono`,
+        `estado_usuario_idestado_usuario`  
     )
 VALUES
     (
@@ -184,7 +206,8 @@ VALUES
         MD5('prueba'),
         '2',
         '9',
-        '398745621'
+        '398745621',
+        '3'
     );
 
 -- -----------------------------------------------------
@@ -340,11 +363,11 @@ INSERT INTO
     `agenda` (`idagenda`, `usuario_idusuario`)
 VALUES
     (NULL, '1'),
+    (NULL, '2'),
     (NULL, '3'),
     (NULL, '4'),
     (NULL, '5'),
-    (NULL, '6'),
-    (NULL, '7');
+    (NULL, '6');
 
 -- -----------------------------------------------------
 -- Poblar tabla estado_visita

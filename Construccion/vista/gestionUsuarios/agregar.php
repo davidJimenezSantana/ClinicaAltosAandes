@@ -10,36 +10,63 @@ if (isset($_GET["add"])) {
     $tel = $_POST["tel"];
     $rol = $_POST["rol"];
     $especialidad = $_POST["especialidad"];
+    $estado = $_POST["estado"];
 
-    $usuario = new usuario(0, "", "", $correo, "", 0, 0, "");
-    
+    $usuario = new usuario(0, "", "", $correo, "", 0, 0, "", "", "", $estado);
+
 
     if (!$usuario->verExistenciaCorreo()) {
-        $usuario = new usuario(0, $nombre, $apellido, $correo, $clave, $rol, $especialidad, $tel);
-        $usuario->agregarUsuario();
-?>
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
 
-            Toast.fire({
-                icon: 'success',
-                title: 'Se agrego el usuario correctamente'
-            })
-        </script>
-    <?php
+        if ($usuario->numContratos()) {
+
+           
+            $usuario = new usuario(0, $nombre, $apellido, $correo, $clave, $rol, $especialidad, $tel,"","",$estado);
+            $usuario->agregarUsuario();
+?>
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Se agrego el usuario correctamente'
+                })
+            </script>
+        <?php
+        } else {
+        ?>
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-start',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'El número de personas contratadas ya es el maximo'
+                })
+            </script>
+        <?php
+        }
     } else {
 
-    ?>
+        ?>
         <script>
             const Toast = Swal.mixin({
                 toast: true,
@@ -67,6 +94,8 @@ $rol = new rol();
 $roles = $rol->verRoles();
 $especialidad = new especialidad();
 $especialidades = $especialidad->verEspecialidades();
+$estado = new estado_usuario();
+$estados = $estado->verEstados();
 
 ?>
 
@@ -149,6 +178,7 @@ $especialidades = $especialidad->verEspecialidades();
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col-6">
+                                    <label for="rol">Rol:</label>
                                     <select class="form-select" aria-label="Default select example" name="rol">
                                         <?php
                                         foreach ($roles as $rolActual) {
@@ -160,15 +190,34 @@ $especialidades = $especialidad->verEspecialidades();
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select class="form-select" aria-label="Default select example" name="especialidad">
+                                    <label for="rol">Estado:</label>
+                                    <select class="form-select" aria-label="Default select example" name="estado">
                                         <?php
-                                        foreach ($especialidades as $especialidadActual) {
+                                        foreach ($estados as $estadoActual) {
                                         ?>
-                                            <option value="<?php echo $especialidadActual->getIdespecialidad() ?>"><?php echo $especialidadActual->getNombre() ?></option>
+                                            <option value="<?php echo $estadoActual->getIdestado_usuario() ?>"><?php echo $estadoActual->getNombre() ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tel" class="form-label">Especialidad: </label>
+                                <select class="form-select" aria-label="Default select example" name="especialidad">
+                                    <?php
+                                    foreach ($especialidades as $especialidadActual) {
+                                    ?>
+                                        <option value="<?php echo $especialidadActual->getIdespecialidad() ?>"><?php echo $especialidadActual->getNombre() ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <div class="valid-feedback">
+                                    Ok!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el la especialidad del usuario.
                                 </div>
                             </div>
                         </div>

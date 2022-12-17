@@ -1,8 +1,16 @@
 <?php
-include("vista/admin/menuAdmin.php");
+$u = new usuario($_SESSION["idusuario"]);
+$u->consultarRolUsuario();
+
+if($u->getIdrol() == 1){
+    include("vista/admin/menuAdmin.php");
+}else if($u->getIdrol() == 2){
+    include("vista/doctor/menuDoctor.php");
+}
+
 include("logica/paciente/paciente.php");
 include("logica/paciente/historiaClinica.php");
-include("logica/paciente/visita.php");
+include("logica/agenda/visita.php");
 
 $paciente = "";
 

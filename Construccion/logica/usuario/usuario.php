@@ -3,7 +3,8 @@ require_once("persistencia/usuario/usuarioDAO.php");
 require_once("persistencia/conexion.php");
 require_once("logica/usuario/rol.php");
 require_once("logica/usuario/especialidad.php");
-require_once("logica/usuario/agenda.php");
+require_once("logica/agenda/agenda.php");
+require_once("logica/usuario/estado_usuario.php");
 
 class usuario
 {
@@ -17,6 +18,7 @@ class usuario
     private $rol;
     private $especialidad;
     private $telefono;
+    private $estado;
     private $foto;
     private $token;
 
@@ -26,7 +28,7 @@ class usuario
     private $agenda;
 
 
-    public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "", $foto = "", $token = "")
+    public function __construct($idusuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $rol_idrol = 0, $especialidad_idespecialidad = 0, $telefono = "", $foto = "", $token = "", $estado = 0)
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -39,12 +41,13 @@ class usuario
         $this->foto = $foto;
         $this->token = $token;
         $this->agenda = new agenda(0, $this->idusuario);
+        $this->estado = new estado_usuario($estado);
 
         $this->conexion = new conexion();
-        $this->usuarioDAO = new usuarioDAO($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token);
+        $this->usuarioDAO = new usuarioDAO($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token, $estado);
     }
 
-    
+
     public function getNombre()
     {
         return $this->nombre;
@@ -237,6 +240,26 @@ class usuario
         return $this;
     }
 
+    /**
+     * Get the value of estado
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set the value of estado
+     *
+     * @return  self
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
     public function autenticar()
     {
         $this->conexion->abrir();
@@ -250,7 +273,6 @@ class usuario
             $this->conexion->cerrar();
             return false;
         }
-        
     }
 
     public function consultarRolUsuario()
@@ -277,9 +299,11 @@ class usuario
         $this->rol = new rol($resultado["rol_idrol"]);
         $this->especialidad = new especialidad($resultado["especialidad_idespecialidad"]);
         $this->telefono = $resultado["telefono"];
+        $this->estado = new estado_usuario($resultado["estado_usuario_idestado_usuario"]);
 
         $this->rol->consultarRol();
-        $this->especialidad->consultarEspecialidad();        
+        $this->especialidad->consultarEspecialidad();
+        $this->estado->consultarEstadoUsuario();
         $this->conexion->cerrar();
     }
 
@@ -291,9 +315,10 @@ class usuario
         $usuarios = array();
 
         while (($resultado = $this->conexion->extraer()) != null) {
-            $u = new usuario($resultado["idusuario"], $resultado["nombre"], $resultado["apellido"], $resultado["correo"], "", $resultado["rol_idrol"], $resultado["especialidad_idespecialidad"], $resultado["telefono"]);
+            $u = new usuario($resultado["idusuario"], $resultado["nombre"], $resultado["apellido"], $resultado["correo"], "", $resultado["rol_idrol"], $resultado["especialidad_idespecialidad"], $resultado["telefono"], "", "", $resultado["estado_usuario_idestado_usuario"]);
             $u->getRol()->consultarRol();
             $u->getEspecialidad()->consultarEspecialidad();
+            $u->getEstado()->consultarEstadoUsuario();
             array_push($usuarios, $u);
         }
         $this->conexion->cerrar();
@@ -312,9 +337,9 @@ class usuario
     {
         $this->conexion->abrir();
         $this->conexion->ejecutar($this->usuarioDAO->agregarUsuario());
-        if($this->rol->getIdrol() == 2){
+        if ($this->rol->getIdrol() == 2) {
             $this->agregarAgenda();
-        }        
+        }
         $this->conexion->cerrar();
     }
 
@@ -327,10 +352,10 @@ class usuario
 
     public function eliminarUsuario()
     {
-        $this->conexion->abrir();        
+        $this->conexion->abrir();
         $this->agenda->consultarAgendaUsuario();
         $this->agenda->eliminarAgenda();
-        $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());        
+        $this->conexion->ejecutar($this->usuarioDAO->eliminarUsuario());
         $this->conexion->cerrar();
     }
 
@@ -348,7 +373,26 @@ class usuario
         } else {
             $this->conexion->cerrar();
             return false;
+        }
+    }
 
+    public function numContratos()
+    {
+        $this->conexion->abrir();
+        $this->usuarioDAO->setEstado_usuario_idestado_usuario($this->estado);
+        $this->conexion->ejecutar($this->usuarioDAO->numContratos());
+        $this->estado->consultarEstadoUsuario();
+        echo $this->estado->getIdestado_usuario()   ;
+        if ($this->estado->getIdestado_usuario() == 1) {
+            if ($this->conexion->numResultados() <= 9) {
+                $this->conexion->cerrar();
+                return true;
+            } else {
+                false;
+            }
+            $this->conexion->cerrar();
+        } else {           
+            return true;
         }
         
     }
@@ -372,10 +416,8 @@ class usuario
 
     public function actualizarClave()
     {
-        $this->conexion->abrir();        
+        $this->conexion->abrir();
         $this->conexion->ejecutar($this->usuarioDAO->actualizarClave());
         $this->conexion->cerrar();
     }
-
-    
 }

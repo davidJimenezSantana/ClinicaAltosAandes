@@ -246,12 +246,12 @@ class paciente
 		$this->conexion->cerrar();		
 	}
 
-	public function eliminarPaciente()
+	/* public function eliminarPaciente()
 	{
 		$this->conexion->abrir();
 		$this->conexion->ejecutar($this->pacienteDAO->eliminarPaciente());
 		$this->conexion->cerrar();	
-	}
+	} */
 
 	public function validarExistencia()
     {
@@ -264,5 +264,6 @@ class paciente
 			$this->conexion->cerrar();	
 			return false;
 		}
+
     }
 }

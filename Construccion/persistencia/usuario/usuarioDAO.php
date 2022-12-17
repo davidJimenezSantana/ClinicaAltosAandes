@@ -13,9 +13,10 @@ class usuarioDAO
     private $telefono;
     private $foto;
     private $token;
+    private $estado_usuario_idestado_usuario;
 
 
-    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token)
+    public function __construct($idusuario, $nombre, $apellido, $correo, $clave, $rol_idrol, $especialidad_idespecialidad, $telefono, $foto, $token, $estado_usuario_idestado_usuario)
     {
         $this->idusuario = $idusuario;
         $this->nombre = $nombre;
@@ -27,6 +28,7 @@ class usuarioDAO
         $this->telefono = $telefono;
         $this->foto = $foto;
         $this->token = $token;
+        $this->estado_usuario_idestado_usuario = $estado_usuario_idestado_usuario;
     }
 
     /**
@@ -120,6 +122,28 @@ class usuarioDAO
         return $this;
     }
 
+
+    /**
+     * Get the value of estado_usuario_idestado_usuario
+     */
+    public function getEstado_usuario_idestado_usuario()
+    {
+        return $this->estado_usuario_idestado_usuario;
+    }
+
+    /**
+     * Set the value of estado_usuario_idestado_usuario
+     */
+    public function setEstado_usuario_idestado_usuario($estado_usuario_idestado_usuario)
+    {
+        $this->estado_usuario_idestado_usuario = $estado_usuario_idestado_usuario;
+
+        return $this;
+    }
+
+
+
+
     public function autenticar()
     {
         return "SELECT idusuario
@@ -129,7 +153,7 @@ class usuarioDAO
 
     public function consultarUsuario()
     {
-        return "SELECT nombre, apellido, correo, rol_idrol, especialidad_idespecialidad, telefono
+        return "SELECT nombre, apellido, correo, rol_idrol, especialidad_idespecialidad, telefono, estado_usuario_idestado_usuario
                 FROM usuario
                 WHERE idusuario = '" . $this->idusuario . "'";
     }
@@ -144,20 +168,20 @@ class usuarioDAO
 
     public function verUsuarios()
     {
-        return "SELECT idusuario,nombre, apellido, correo, rol_idrol, especialidad_idespecialidad, telefono
+        return "SELECT idusuario,nombre, apellido, correo, rol_idrol, especialidad_idespecialidad, telefono, estado_usuario_idestado_usuario
                 FROM usuario";
     }
 
     public function agregarUsuario()
     {
-        return "INSERT INTO usuario (nombre, apellido, correo, clave, rol_idrol, especialidad_idespecialidad, telefono)
-        VALUES ('" . $this->nombre . "', '" . $this->apellido . "', '" . $this->correo . "', '" . md5($this->clave) . "', '" . $this->rol_idrol . "', '" .  $this->especialidad_idespecialidad . "', '" . $this->telefono . "')";
+        return "INSERT INTO usuario (nombre, apellido, correo, clave, rol_idrol, especialidad_idespecialidad, telefono,estado_usuario_idestado_usuario)
+        VALUES ('" . $this->nombre . "', '" . $this->apellido . "', '" . $this->correo . "', '" . md5($this->clave) . "', '" . $this->rol_idrol . "', '" .  $this->especialidad_idespecialidad . "', '" . $this->telefono . "', '" . $this->estado_usuario_idestado_usuario . "')";
     }
 
     public function editarUsuario()
     {
         return "UPDATE usuario
-        SET nombre='" . $this->nombre . "' , apellido='" . $this->apellido . "', correo='" . $this->correo . "', rol_idrol=' " . $this->rol_idrol . "', especialidad_idespecialidad='" . $this->especialidad_idespecialidad . "', telefono='" . $this->telefono . "'
+        SET nombre='" . $this->nombre . "' , apellido='" . $this->apellido . "', correo='" . $this->correo . "', rol_idrol=' " . $this->rol_idrol . "', especialidad_idespecialidad='" . $this->especialidad_idespecialidad . "', telefono='" . $this->telefono . "', estado_usuario_idestado_usuario='" . $this->estado_usuario_idestado_usuario . "'
         WHERE idusuario='" . $this->idusuario . "'";
     }
 
@@ -172,6 +196,13 @@ class usuarioDAO
         return "SELECT idusuario
                 FROM usuario
                 WHERE correo = '" . $this->correo . "'";
+    }
+
+    public function numContratos()
+    {
+        return "SELECT estado_usuario_idestado_usuario
+                FROM usuario
+                WHERE estado_usuario_idestado_usuario = '1'";
     }
 
     public function guardarToken()
@@ -201,5 +232,4 @@ class usuarioDAO
                 FROM usuario
                 WHERE correo ='" . $this->correo . "'";
     }
-
 }

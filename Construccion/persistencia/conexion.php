@@ -7,7 +7,7 @@ class conexion
 
     public function abrir() // abre conexion con la base de datos
     {
-        $this->mysqli = new mysqli("localhost", "root", "", "altodelosalpes");
+        $this->mysqli = new mysqli("localhost", "root", "", "clinicaaltodelosalpes");
         $this->mysqli->set_charset("utf8");
 
         if ($this->mysqli->connect_errno) {
